@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'prompt.js') }}"></script>
+    
+    <script>
+        let data = {{data|tojson}} 
+        console.log(data)
+    </script>
+
+    <div class="title">Prompt-1</div>
+    <div class="no-gutters"></div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-9">
+            <input type="text" id="Enter_Prompt">
+        </div>  
+        <div class="col-md-2">
+            <span class="LikeMe"></span>
+        </div>  
+    </div>
+    <div class="no-gutters"></div>
+    <div class="no-gutters"></div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-9">
+        </div>  
+        <div class="col-md-2">
+            <div><button id="submit" class="wrapper">Submit</button></div>
+        </div>  
+</div>
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-6">
+    </div>  
+    <div class="col-md-5">
+        <div class="AnswerUpdate"></div>
+        <div class="AnswerUpdate2"></div>
+    </div>  
+</div>
+
+
+{% endblock %}
+

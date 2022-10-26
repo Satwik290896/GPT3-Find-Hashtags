@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'content.js') }}"></script>
+    
+    <script>
+        let data = {{data|tojson}} 
+        /*GPT answers are presesnt in this data. Use it properly*/
+        /*let content = data["1"]*/
+    </script>
+
+
+
+<div class="title">Content</div>
+<div class="no-gutters"></div>
+<div><b><h2><u>Pick One that suits you</u></h2></b></div>
+<div class="no-gutters"></div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-5"></div>    
+    <div class="col-md-2"></div> 
+    <div class="col-md-1"></div> 
+    <div class="col-md-2"></div>  
+</div>
+<div class="no-gutters"></div>
+<div class="Updates"></div>
+</div>
+
+
+{% endblock %}
+

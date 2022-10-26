@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename = 'home.js') }}"></script>
+    
+    <script>
+        let data = {{data|tojson}} 
+    </script>
+
+
+
+<div class="title">Welcome. Click below to start.</div>
+<div class="no-gutters"></div>
+<div class="row">
+    <div class="col-md-4">
+        <button id="home" class="wrapper"> Start
+        </button>
+    </div> 
+</div>
+
+
+{% endblock %}
+
