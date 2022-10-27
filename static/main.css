@@ -1,1 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+body {
+  width: 100%;
+  height: 100%;
+  background-size: 100%;
+  background-color: #cddbff;
+  font-family: "Inter", sans-serif;
+}
+
+.prompt-box {
+  margin-top: 100px;
+  padding: 20px;
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  background-color: #2361ff;
+  color: #cddbff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#user-input {
+  width: 100%;
+  font-size: 15px;
+}
