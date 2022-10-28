@@ -23,16 +23,20 @@ const renderContent = async (userInput) => {
     $("#regenerate").addClass("d-none");
     $(".selection").html("");
     $(".choices").html("");
+    $(".image").html("");
     $("#user-input").removeClass("d-none");
+    $("#user-input").focus();
+    $("#submit-btn").removeClass("d-none");
   }
   else if (currDescIdx == 1) {
     $("#back").removeClass("d-none");
     $("#home").addClass("d-none");
     $(".choices").html("");
+    $("#user-input").focus();
 
   } 
   else if (currDescIdx == 2) {
-
+    $("#user-input").focus();
     $.ajax({
       type: "POST",
       url: "inputs",
@@ -49,6 +53,7 @@ const renderContent = async (userInput) => {
       },
     });
   } else if (currDescIdx == 3) {
+    $("#user-input").focus();
     $("#back").addClass("d-none");
     $("#home").removeClass("d-none");
     $("#tab").addClass("d-none");
