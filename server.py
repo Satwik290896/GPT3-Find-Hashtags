@@ -35,18 +35,18 @@ def process_input():
 
     response_data = {'code': 'SUCCESS'}
 
-    if description == 1:
+    if description == 0:
         global identity
         identity = user_input
-    elif description == 2:
+    elif description == 1:
         global tone
         tone = user_input
-    elif description == 3:
+    elif description == 2:
         global topic
         topic = user_input
         captions, ideas = get_captions()
         response_data = {'captions': ideas}
-    elif description == 4:
+    elif description == 3:
         hashtags, ideas = get_hashtags()
         response_data = {'hashtags': ideas}
     
