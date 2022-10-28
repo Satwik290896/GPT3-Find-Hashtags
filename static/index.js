@@ -21,9 +21,20 @@ const renderContent = async (userInput) => {
   if(currDescIdx === 0){
     $("#user-input").hide();
   }else{
+    $(".image").html("");
     $("#user-input").show();
+    $("#user-input").focus();
+    $("#submit-btn").removeClass("d-none");
   }
-  if (currDescIdx === 3) {
+  else if (currDescIdx == 1) {
+    $("#back").removeClass("d-none");
+    $("#home").addClass("d-none");
+    $(".choices").html("");
+    $("#user-input").focus();
+
+  } 
+  else if (currDescIdx == 2) {
+    $("#user-input").focus();
     $.ajax({
       type: "POST",
       url: "inputs",
@@ -40,6 +51,7 @@ const renderContent = async (userInput) => {
       },
     });
   } else if (currDescIdx === 4) {
+    $("#user-input").focus();
     $("#regenerate").removeClass("d-none");
     $(".selection").append("Select a caption by entering a number from 1-5.");
 
