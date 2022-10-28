@@ -25,6 +25,24 @@ body {
   font-size: 15px;
 }
 
+#back {
+  border-style: none;
+  background-color: transparent;
+  color: #cddbff;
+  font-weight: 700;
+  margin-top: 10px;
+  margin-left: -150px;
+}
+
+#home {
+  border-style: none;
+  background-color: transparent;
+  color: #cddbff;
+  font-weight: 700;
+  margin-top: 10px;
+  font-size: medium;
+
+}
 #submit-btn,
 #regenerate {
   border-style: none;
@@ -34,6 +52,8 @@ body {
   margin-top: 10px;
 }
 
+#home:hover,
+#back:hover,
 #submit-btn:hover,
 #regenerate:hover {
   cursor: grab;
@@ -42,4 +62,9 @@ body {
 
 .choices {
   font-weight: 400;
+}
+
+#tab {
+  display: inline-block;
+  margin-left: 10%;
 }

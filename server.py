@@ -5,7 +5,7 @@ import config
 
 # load any file in .env
 openai.api_key = config.api_key
-
+print("HEllo ", config.api_key)
 
 app = Flask(__name__)
 
