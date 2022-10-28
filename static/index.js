@@ -20,13 +20,18 @@ const renderContent = async (userInput) => {
   if(currDescIdx == 0) {
     $("#back").addClass("d-none");
     $("#home").removeClass("d-none");
+    $("#regenerate").addClass("d-none");
+    $(".selection").html("");
+    $(".choices").html("");
   }
   else if (currDescIdx == 1) {
     $("#back").removeClass("d-none");
     $("#home").addClass("d-none");
+    $(".choices").html("");
 
   } 
   else if (currDescIdx == 2) {
+
     $.ajax({
       type: "POST",
       url: "inputs",
@@ -181,7 +186,7 @@ const handleback = () => {
 };
 
 const handlehome = () => {
-  $("#back").on("click", () => {
+  $("#home").on("click", () => {
     if (currDescIdx == 0 || currDescIdx > 2) {
       currDescIdx = 0;
       renderContent();
