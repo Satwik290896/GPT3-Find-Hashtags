@@ -5,7 +5,7 @@ import config
 
 # load api key from config.py
 openai.api_key = config.api_key
-
+print("HEllo ", config.api_key)
 
 app = Flask(__name__)
 

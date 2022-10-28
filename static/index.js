@@ -164,10 +164,32 @@ const handleRegenerate = () => {
   });
 };
 
+const handleback = () => {
+  $("#back").on("click", () => {
+    if (currDescIdx == 1 || currDescIdx == 2) {
+      currDescIdx = currDescIdx - 1;
+      renderContent();
+    }
+  });
+};
+
+const handlehome = () => {
+  $("#back").on("click", () => {
+    if (currDescIdx == 0 || currDescIdx > 2) {
+      currDescIdx = 0;
+      renderContent();
+    }
+  });
+};
+
 $(document).ready(() => {
   renderContent();
 
   handleSubmit();
 
   handleRegenerate();
+
+  handleback();
+
+  handlehome();
 });
