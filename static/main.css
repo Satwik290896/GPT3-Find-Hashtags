@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
+img {
+  min-width: 100%;
+  height: 250px;
+}
+
+hr {
+  background-color: #cddbff;
+}
+
 body {
   width: 100%;
   height: 100%;

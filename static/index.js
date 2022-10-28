@@ -4,11 +4,11 @@ const descriptions = {
   2: "Cool! Now, tell us a little bit more about the product you want to post about. What are you selling? What can people do with it?",
   3: "Lets take a look at some captions based on your input: <br/>",
   4: "Here are some hashtags to pair your caption with: ",
+  5: "Here's a sample of your post: <hr>",
 };
 
 let userInput = "";
 let captionChoice = 0;
-let hashtagChoice = 0;
 let currDescIdx = 0;
 
 let captionsArr;
@@ -58,10 +58,31 @@ const renderContent = async (userInput) => {
     });
   } else if (currDescIdx === 4) {
     $(".choices").empty();
+    $(".selection").empty();
+    $("#user-input").remove();
+    $(".selection").append("Select submit if you like these hashtags.");
+
     hashtagsArr.forEach((hashtag) => {
       $(".choices").append(hashtag);
     });
+  } else if (currDescIdx === 5) {
   }
+};
+
+const renderSamplePost = () => {
+  $(".choices").empty();
+  $(".selection").empty();
+  $("#submit-btn").addClass("d-none");
+  $("#regenerate").addClass("d-none");
+  $("#user-input").addClass("d-none");
+  $(".image").append(
+    'username <br/> <img class="img-fluid" src="static/image.jpg">'
+  );
+  $(".choices").append(
+    "<b>username</b> <br/>" + captionsArr[captionChoice] + "<br/>"
+  );
+
+  $(".choices").append(hashtagsArr + "<br/>");
 };
 
 const handleSubmit = () => {
@@ -69,9 +90,9 @@ const handleSubmit = () => {
     userInput = $("#user-input").val();
 
     if (currDescIdx === 3) {
-      captionChoice = Number(userInput);
+      captionChoice = Number(userInput) - 1;
     } else if (currDescIdx === 4) {
-      hashtagChoice = Number(userInput);
+      hashtagChoice = Number(userInput) - 1;
     }
 
     $.ajax({
@@ -92,6 +113,10 @@ const handleSubmit = () => {
 
     currDescIdx++;
 
+    if (currDescIdx === 5) {
+      renderSamplePost();
+    }
+
     renderContent(userInput);
 
     $("#user-input").val(" ");
@@ -100,20 +125,29 @@ const handleSubmit = () => {
 
 const handleRegenerate = () => {
   $("#regenerate").on("click", () => {
+    console.log(currDescIdx);
     $.ajax({
       type: "POST",
       url: "inputs",
       dataType: "json",
       contentType: "application/json; charset=utf-8",
-      data: JSON.stringify({ description: 2, input: userInput }),
+      data: JSON.stringify({ description: currDescIdx - 1, input: userInput }),
       success: function (response) {
         $(".choices").empty();
 
-        captionsArr = response["captions"];
+        if (currDescIdx - 1 === 2) {
+          captionsArr = response["captions"];
 
-        captionsArr.forEach((caption) => {
-          $(".choices").append(caption + "</br>");
-        });
+          captionsArr.forEach((caption) => {
+            $(".choices").append(caption + "</br>");
+          });
+        } else if (currDescIdx - 1 === 3) {
+          hashtagsArr = response["hashtags"];
+
+          hashtagsArr.forEach((hashtag) => {
+            $(".choices").append(hashtag + "</br>");
+          });
+        }
       },
       error: function (request, status, error) {
         console.log(request);
