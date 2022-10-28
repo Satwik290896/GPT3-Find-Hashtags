@@ -65,7 +65,7 @@ const renderContent = async (userInput) => {
   } else if (currDescIdx === 5) {
     $(".choices").empty();
     $(".selection").empty();
-    $("#user-input").remove();
+    $("#user-input").addClass("d-none");
     $(".selection").append("Select submit if you like these hashtags.");
 
     hashtagsArr.forEach((hashtag) => {
@@ -174,7 +174,7 @@ const handleback = () => {
 };
 
 const handlehome = () => {
-  $("#back").on("click", () => {
+  $("#home").on("click", () => {
     if (currDescIdx == 0 || currDescIdx > 2) {
       currDescIdx = 0;
       renderContent();
