@@ -12,7 +12,7 @@ body {
   margin-top: 100px;
   padding: 20px;
   width: 100%;
-  height: 500px;
+  height: auto;
   border-radius: 20px;
   background-color: #2361ff;
   color: #cddbff;
@@ -23,4 +23,23 @@ body {
 #user-input {
   width: 100%;
   font-size: 15px;
+}
+
+#submit-btn,
+#regenerate {
+  border-style: none;
+  background-color: transparent;
+  color: #cddbff;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+#submit-btn:hover,
+#regenerate:hover {
+  cursor: grab;
+  scale: 1.1;
+}
+
+.choices {
+  font-weight: 400;
 }
