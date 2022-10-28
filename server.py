@@ -3,7 +3,7 @@ import openai
 import re
 import config
 
-# load any file in .env
+# load api key from config.py
 openai.api_key = config.api_key
 
 
