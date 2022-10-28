@@ -17,7 +17,16 @@ let hashtagsArr;
 const renderContent = async (userInput) => {
   $(".description").html(descriptions[currDescIdx]);
 
-  if (currDescIdx === 2) {
+  if(currDescIdx == 0) {
+    $("#back").addClass("d-none");
+    $("#home").removeClass("d-none");
+  }
+  else if (currDescIdx == 1) {
+    $("#back").removeClass("d-none");
+    $("#home").addClass("d-none");
+
+  } 
+  else if (currDescIdx == 2) {
     $.ajax({
       type: "POST",
       url: "inputs",
@@ -33,7 +42,10 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx === 3) {
+  } else if (currDescIdx == 3) {
+    $("#back").addClass("d-none");
+    $("#home").removeClass("d-none");
+    $("#tab").addClass("d-none");
     $("#regenerate").removeClass("d-none");
     $(".selection").append("Select a caption by entering a number from 1-5.");
 
@@ -56,7 +68,7 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx === 4) {
+  } else if (currDescIdx == 4) {
     $(".choices").empty();
     $(".selection").empty();
     $("#user-input").remove();
@@ -66,6 +78,7 @@ const renderContent = async (userInput) => {
       $(".choices").append(hashtag);
     });
   } else if (currDescIdx === 5) {
+    $("#submit-btn").addClass("d-none");
   }
 };
 
@@ -158,10 +171,32 @@ const handleRegenerate = () => {
   });
 };
 
+const handleback = () => {
+  $("#back").on("click", () => {
+    if (currDescIdx == 1 || currDescIdx == 2) {
+      currDescIdx = currDescIdx - 1;
+      renderContent();
+    }
+  });
+};
+
+const handlehome = () => {
+  $("#back").on("click", () => {
+    if (currDescIdx == 0 || currDescIdx > 2) {
+      currDescIdx = 0;
+      renderContent();
+    }
+  });
+};
+
 $(document).ready(() => {
   renderContent();
 
   handleSubmit();
 
   handleRegenerate();
+
+  handleback();
+
+  handlehome();
 });
