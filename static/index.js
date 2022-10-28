@@ -1,11 +1,11 @@
 const descriptions = {
-  //0: "Generate clever captions and hashtags for your instagram posts with this instagram curator.",
-  0: "To get started, tell us a little about who you are. <br/> Are you an influencer, a salesman, etc?",
-  1: "Tell us about the tone of your message. <br/> Do you want to be trendy, professional, sarcastic, geeky, etc?",
-  2: "Cool! Now, tell us a little bit more about the product you want to post about. What are you selling? What can people do with it?",
-  3: "Lets take a look at some captions based on your input: <br/>",
-  4: "Here are some hashtags to pair your caption with: ",
-  5: "Here's a sample of your post: <hr>",
+  0: "Generate clever captions and hashtags for your instagram posts with this instagram curator.",
+  1: "To get started, tell us a little about who you are. <br/> Are you an influencer, a salesman, etc?",
+  2: "Tell us about the tone of your message. <br/> Do you want to be trendy, professional, sarcastic, geeky, etc?",
+  3: "Cool! Now, tell us a little bit more about the product you want to post about. What are you selling? What can people do with it?",
+  4: "Lets take a look at some captions based on your input: <br/>",
+  5: "Here are some hashtags to pair your caption with: ",
+  6: "Here's a sample of your post: <hr>",
 };
 
 let userInput = "";
@@ -18,6 +18,19 @@ let hashtagsArr;
 const renderContent = async (userInput) => {
   $(".description").html(descriptions[currDescIdx]);
   if(currDescIdx == 0) {
+    $("#home").addClass("d-none");
+    $("#start").removeClass("d-none");
+    $("#back").addClass("d-none");
+    $("#regenerate").addClass("d-none");
+    $(".selection").html("");
+    $(".choices").html("");
+    $(".image").html("");
+    $("#user-input").addClass("d-none");
+    $("#submit-btn").addClass("d-none");
+  }
+  if(currDescIdx == 1) {
+    $("#start").addClass("d-none");
+    $("#submit-btn").html("Submit");
     $("#back").addClass("d-none");
     $("#home").removeClass("d-none");
     $("#regenerate").addClass("d-none");
@@ -28,14 +41,14 @@ const renderContent = async (userInput) => {
     $("#user-input").focus();
     $("#submit-btn").removeClass("d-none");
   }
-  else if (currDescIdx == 1) {
+  else if (currDescIdx == 2) {
     $("#back").removeClass("d-none");
     $("#home").addClass("d-none");
     $(".choices").html("");
     $("#user-input").focus();
 
   } 
-  else if (currDescIdx == 2) {
+  else if (currDescIdx == 3) {
 
     $("#user-input").focus();
     $.ajax({
@@ -53,7 +66,7 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx == 3) {
+  } else if (currDescIdx == 4) {
     $("#user-input").focus();
     $("#back").addClass("d-none");
     $("#home").removeClass("d-none");
@@ -80,7 +93,7 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx == 4) {
+  } else if (currDescIdx == 5) {
     $(".choices").empty();
     $(".selection").empty();
     $("#user-input").addClass("d-none");
@@ -89,7 +102,7 @@ const renderContent = async (userInput) => {
     hashtagsArr.forEach((hashtag) => {
       $(".choices").append(hashtag);
     });
-  } else if (currDescIdx === 5) {
+  } else if (currDescIdx === 6) {
     $("#submit-btn").addClass("d-none");
   }
 };
@@ -114,9 +127,9 @@ const handleSubmit = () => {
   $("#submit-btn").click(() => {
     userInput = $("#user-input").val();
 
-    if (currDescIdx === 3) {
+    if (currDescIdx === 4) {
       captionChoice = Number(userInput) - 1;
-    } else if (currDescIdx === 4) {
+    } else if (currDescIdx === 5) {
       hashtagChoice = Number(userInput) - 1;
     }
 
@@ -138,7 +151,45 @@ const handleSubmit = () => {
 
     currDescIdx++;
 
-    if (currDescIdx === 5) {
+    if (currDescIdx === 6) {
+      renderSamplePost();
+    }
+
+    renderContent(userInput);
+
+    $("#user-input").val(" ");
+  });
+};
+
+const handleStart = () => {
+  $("#start").click(() => {
+    userInput = $("#user-input").val();
+
+    if (currDescIdx === 4) {
+      captionChoice = Number(userInput) - 1;
+    } else if (currDescIdx === 5) {
+      hashtagChoice = Number(userInput) - 1;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "inputs",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ description: currDescIdx, input: userInput }),
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (request, status, error) {
+        console.log(request);
+        console.log(status);
+        console.log(error);
+      },
+    });
+
+    currDescIdx++;
+
+    if (currDescIdx === 6) {
       renderSamplePost();
     }
 
@@ -160,13 +211,13 @@ const handleRegenerate = () => {
       success: function (response) {
         $(".choices").empty();
 
-        if (currDescIdx - 1 === 2) {
+        if (currDescIdx - 1 === 3) {
           captionsArr = response["captions"];
 
           captionsArr.forEach((caption) => {
             $(".choices").append(caption + "</br>");
           });
-        } else if (currDescIdx - 1 === 3) {
+        } else if (currDescIdx - 1 === 4) {
           hashtagsArr = response["hashtags"];
 
           hashtagsArr.forEach((hashtag) => {
@@ -185,7 +236,7 @@ const handleRegenerate = () => {
 
 const handleback = () => {
   $("#back").on("click", () => {
-    if (currDescIdx == 1 || currDescIdx == 2) {
+    if (currDescIdx == 2 || currDescIdx == 3) {
       currDescIdx = currDescIdx - 1;
       renderContent();
     }
@@ -194,7 +245,7 @@ const handleback = () => {
 
 const handlehome = () => {
   $("#home").on("click", () => {
-    if (currDescIdx == 0 || currDescIdx > 2) {
+    if (currDescIdx == 0 || currDescIdx == 1 || currDescIdx > 3) {
       currDescIdx = 0;
       renderContent();
     }
@@ -205,6 +256,7 @@ $(document).ready(() => {
   renderContent();
 
   handleSubmit();
+  handleStart();
 
   handleRegenerate();
 

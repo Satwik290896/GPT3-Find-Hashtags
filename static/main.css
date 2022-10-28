@@ -52,6 +52,8 @@ body {
   font-size: medium;
 
 }
+
+#start,
 #submit-btn,
 #regenerate {
   border-style: none;
@@ -61,6 +63,7 @@ body {
   margin-top: 10px;
 }
 
+#start:hover,
 #home:hover,
 #back:hover,
 #submit-btn:hover,
