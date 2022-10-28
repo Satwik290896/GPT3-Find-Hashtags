@@ -1,8 +1,11 @@
 from flask import Flask, jsonify, render_template, request, make_response
 import openai 
 import re
+import config
 
-openai.api_key ="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"
+# load any file in .env
+openai.api_key = config.api_key
+
 
 app = Flask(__name__)
 
@@ -50,11 +53,5 @@ def process_input():
     
     return jsonify(response_data)
 
-
-
-
-
-
-
-    
-
+if __name__ == '__main__':
+    app.run(debug = True)
