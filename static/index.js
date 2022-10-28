@@ -6,6 +6,9 @@ const descriptions = {
   4: "Here are some hashtags to pair your caption with: ",
 };
 
+let userInput = "";
+let captionChoice = 0;
+let hashtagChoice = 0;
 let currDescIdx = 0;
 
 let captionsArr;
@@ -15,57 +18,77 @@ const renderContent = async (userInput) => {
   $(".description").html(descriptions[currDescIdx]);
 
   if (currDescIdx === 2) {
-    try {
-      const response = await axios.post("/inputs", {
-        description: currDescIdx,
-        input: userInput,
-      });
-
-      captionsArr = response["data"]["captions"];
-    } catch (error) {
-      console.log(error);
-    }
+    $.ajax({
+      type: "POST",
+      url: "inputs",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ description: currDescIdx, input: userInput }),
+      success: function (response) {
+        captionsArr = response["captions"];
+      },
+      error: function (request, status, error) {
+        console.log(request);
+        console.log(status);
+        console.log(error);
+      },
+    });
   } else if (currDescIdx === 3) {
-    $("#submit-btn").addClass("d-none");
-    $("#like").removeClass("d-none");
     $("#regenerate").removeClass("d-none");
+    $(".selection").append("Select a caption by entering a number from 1-5.");
 
-    try {
-      const response = await axios.post("/inputs", {
-        description: currDescIdx,
-        input: userInput,
-      });
+    $.ajax({
+      type: "POST",
+      url: "inputs",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ description: currDescIdx, input: userInput }),
+      success: function (response) {
+        hashtagsArr = response["hashtags"];
 
-      hashtagsArr = response["data"]["hashtags"];
-
-      captionsArr.forEach((caption) => {
-        $(".description").append(caption + "</br>");
-      });
-    } catch (error) {
-      console.log(error);
-    }
+        captionsArr.forEach((caption) => {
+          $(".choices").append(caption + "</br>");
+        });
+      },
+      error: function (request, status, error) {
+        console.log(request);
+        console.log(status);
+        console.log(error);
+      },
+    });
   } else if (currDescIdx === 4) {
+    $(".choices").empty();
     hashtagsArr.forEach((hashtag) => {
-      $(".description").append(hashtag);
+      $(".choices").append(hashtag);
     });
   }
 };
 
 const handleSubmit = () => {
   $("#submit-btn").click(() => {
-    let userInput = $("#user-input").val();
+    userInput = $("#user-input").val();
 
-    axios
-      .post("/inputs", {
-        description: currDescIdx,
-        input: userInput,
-      })
-      .then(function (response) {
-        console.log("printing", response);
-      })
-      .catch(function (error) {
+    if (currDescIdx === 3) {
+      captionChoice = int(userInput);
+    } else if (currDescIdx === 4) {
+      hashtagChoice = int(userInput);
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "inputs",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ description: currDescIdx, input: userInput }),
+      success: function (response) {
+        console.log(response);
+      },
+      error: function (request, status, error) {
+        console.log(request);
+        console.log(status);
         console.log(error);
-      });
+      },
+    });
 
     currDescIdx++;
 
@@ -76,12 +99,28 @@ const handleSubmit = () => {
 };
 
 const handleRegenerate = () => {
-  $("#regenerate").on("click", () => {});
-};
+  $("#regenerate").on("click", () => {
+    $.ajax({
+      type: "POST",
+      url: "inputs",
+      dataType: "json",
+      contentType: "application/json; charset=utf-8",
+      data: JSON.stringify({ description: 2, input: userInput }),
+      success: function (response) {
+        $(".choices").empty();
 
-const handleLike = () => {
-  $("#like").on("click", () => {
-    currDescIdx++;
+        captionsArr = response["captions"];
+
+        captionsArr.forEach((caption) => {
+          $(".choices").append(caption + "</br>");
+        });
+      },
+      error: function (request, status, error) {
+        console.log(request);
+        console.log(status);
+        console.log(error);
+      },
+    });
   });
 };
 
@@ -91,6 +130,4 @@ $(document).ready(() => {
   handleSubmit();
 
   handleRegenerate();
-
-  handleLike();
 });
