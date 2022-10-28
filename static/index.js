@@ -23,6 +23,7 @@ const renderContent = async (userInput) => {
     $("#regenerate").addClass("d-none");
     $(".selection").html("");
     $(".choices").html("");
+    $("#user-input").removeClass("d-none");
   }
   else if (currDescIdx == 1) {
     $("#back").removeClass("d-none");
@@ -76,7 +77,7 @@ const renderContent = async (userInput) => {
   } else if (currDescIdx == 4) {
     $(".choices").empty();
     $(".selection").empty();
-    $("#user-input").remove();
+    $("#user-input").addClass("d-none");
     $(".selection").append("Select submit if you like these hashtags.");
 
     hashtagsArr.forEach((hashtag) => {
