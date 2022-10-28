@@ -69,9 +69,9 @@ const handleSubmit = () => {
     userInput = $("#user-input").val();
 
     if (currDescIdx === 3) {
-      captionChoice = int(userInput);
+      captionChoice = Number(userInput);
     } else if (currDescIdx === 4) {
-      hashtagChoice = int(userInput);
+      hashtagChoice = Number(userInput);
     }
 
     $.ajax({
