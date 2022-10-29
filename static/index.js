@@ -1,7 +1,7 @@
 const descriptions = {
   0: "Generate clever captions and hashtags for your instagram posts with this instagram curator.",
   1: "To get started, tell us a little about who you are. <br/><br/> For example: influencer, a salesman, entrepreneur, filmmaker, seller, celebrity, doctor, etc?",
-  2: "Tell us about the tone of your message. <br/><br/> Do you want to be trendy, professional, sarcastic, geeky, etc?",
+  2: "Tell us about the tone of your message. <br/><br/> Do you want to be trendy, professional, sarcastic, geeky, authentic, party, celebration, trendy,  etc?",
   3: "Cool! Now, tell us a little bit more about the product you want to post about. <br/><br/> What are you selling? What can people do with it?",
   4: "Lets take a look at some captions based on your input: <br/>",
   5: "Here are some hashtags to pair your caption with: ",
