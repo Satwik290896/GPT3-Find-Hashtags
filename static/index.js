@@ -1,12 +1,38 @@
 const descriptions = {
   0: "Generate clever captions and hashtags for your instagram posts with this instagram curator.",
-  1: "To get started, tell us a little about who you are. <br/> Are you an influencer, a salesman, etc?",
-  2: "Tell us about the tone of your message. <br/> Do you want to be trendy, professional, sarcastic, geeky, etc?",
-  3: "Cool! Now, tell us a little bit more about the product you want to post about. What are you selling? What can people do with it?",
+  1: "To get started, tell us a little about who you are. <br/><br/> For example: influencer, a salesman, entrepreneur, filmmaker, seller, celebrity, doctor, etc?",
+  2: "Tell us about the tone of your message. <br/><br/> Do you want to be trendy, professional, sarcastic, geeky, etc?",
+  3: "Cool! Now, tell us a little bit more about the product you want to post about. <br/><br/> What are you selling? What can people do with it?",
   4: "Lets take a look at some captions based on your input: <br/>",
   5: "Here are some hashtags to pair your caption with: ",
   6: "Here's a sample of your post: <hr>",
 };
+
+let prompt1 = [
+  "influencer",
+  "entrepreneur",
+  "marketing employee",
+  "filmmaker",
+  "seller",
+  "writer",
+  "engineer",
+  "doctor",
+  "lawyer",
+  "artist",
+  "celebrity",
+  "salesperson"
+];
+
+let prompt2 = [
+  "geeky",
+  "professional",
+  "authentic",
+  "trendy",
+  "authentic & trendy",
+  "party",
+  "celebration",
+  "party & celebration"
+];
 
 let userInput = "";
 let captionChoice = 0;
@@ -40,12 +66,18 @@ const renderContent = async (userInput) => {
     $("#user-input").removeClass("d-none");
     $("#user-input").focus();
     $("#submit-btn").removeClass("d-none");
+    $( "#user-input" ).autocomplete({
+      source: prompt1
+      });
   }
   else if (currDescIdx == 2) {
     $("#back").removeClass("d-none");
     $("#home").addClass("d-none");
     $(".choices").html("");
     $("#user-input").focus();
+    $( "#user-input" ).autocomplete({
+      source: prompt2
+      });
 
   } 
   else if (currDescIdx == 3) {
