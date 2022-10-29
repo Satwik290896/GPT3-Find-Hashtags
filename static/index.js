@@ -2,10 +2,11 @@ const descriptions = {
   0: "Generate clever captions and hashtags for your instagram posts with this instagram curator.",
   1: "To get started, tell us a little about who you are. <br/><br/> For example: influencer, a salesman, entrepreneur, filmmaker, seller, celebrity, doctor, etc?",
   2: "Tell us about the tone of your message. <br/><br/> Do you want to be trendy, professional, sarcastic, geeky, authentic, party, celebration, trendy,  etc?",
-  3: "Cool! Now, tell us a little bit more about the product you want to post about. <br/><br/> What are you selling? What can people do with it?",
-  4: "Lets take a look at some captions based on your input: <br/>",
-  5: "Here are some hashtags to pair your caption with: ",
-  6: "Here's a sample of your post: <hr>",
+  3: "Cool! Now, tell us a little bit more about the product you want to post about. <br/><br/> What are you selling?", 
+  4: "What can people do with it?",
+  5: "Lets take a look at some captions based on your input: <br/>",
+  6: "Here are some hashtags to pair your caption with: ",
+  7: "Here's a sample of your post: <hr>",
 };
 
 let prompt1 = [
@@ -81,6 +82,9 @@ const renderContent = async (userInput) => {
 
   } 
   else if (currDescIdx == 3) {
+    $("#user-input").focus();
+  }
+  else if (currDescIdx == 4) {
 
     $("#user-input").focus();
     $.ajax({
@@ -98,7 +102,7 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx == 4) {
+  } else if (currDescIdx == 5) {
     $("#user-input").focus();
     $("#back").addClass("d-none");
     $("#home").removeClass("d-none");
@@ -125,7 +129,7 @@ const renderContent = async (userInput) => {
         console.log(error);
       },
     });
-  } else if (currDescIdx == 5) {
+  } else if (currDescIdx == 6) {
     $(".choices").empty();
     $(".selection").empty();
     $("#user-input").addClass("d-none");
@@ -134,7 +138,7 @@ const renderContent = async (userInput) => {
     hashtagsArr.forEach((hashtag) => {
       $(".choices").append(hashtag);
     });
-  } else if (currDescIdx === 6) {
+  } else if (currDescIdx === 7) {
     $("#submit-btn").addClass("d-none");
   }
 };
@@ -159,9 +163,9 @@ const handleSubmit = () => {
   $("#submit-btn").click(() => {
     userInput = $("#user-input").val();
 
-    if (currDescIdx === 4) {
+    if (currDescIdx === 5) {
       captionChoice = Number(userInput) - 1;
-    } else if (currDescIdx === 5) {
+    } else if (currDescIdx === 6) {
       hashtagChoice = Number(userInput) - 1;
     }
 
@@ -183,7 +187,7 @@ const handleSubmit = () => {
 
     currDescIdx++;
 
-    if (currDescIdx === 6) {
+    if (currDescIdx === 7) {
       renderSamplePost();
     }
 
@@ -197,9 +201,9 @@ const handleStart = () => {
   $("#start").click(() => {
     userInput = $("#user-input").val();
 
-    if (currDescIdx === 4) {
+    if (currDescIdx === 5) {
       captionChoice = Number(userInput) - 1;
-    } else if (currDescIdx === 5) {
+    } else if (currDescIdx === 6) {
       hashtagChoice = Number(userInput) - 1;
     }
 
@@ -221,7 +225,7 @@ const handleStart = () => {
 
     currDescIdx++;
 
-    if (currDescIdx === 6) {
+    if (currDescIdx === 7) {
       renderSamplePost();
     }
 
@@ -243,13 +247,13 @@ const handleRegenerate = () => {
       success: function (response) {
         $(".choices").empty();
 
-        if (currDescIdx - 1 === 3) {
+        if (currDescIdx - 1 === 4) {
           captionsArr = response["captions"];
 
           captionsArr.forEach((caption) => {
             $(".choices").append(caption + "</br>");
           });
-        } else if (currDescIdx - 1 === 4) {
+        } else if (currDescIdx - 1 === 5) {
           hashtagsArr = response["hashtags"];
 
           hashtagsArr.forEach((hashtag) => {
@@ -268,7 +272,7 @@ const handleRegenerate = () => {
 
 const handleback = () => {
   $("#back").on("click", () => {
-    if (currDescIdx == 2 || currDescIdx == 3) {
+    if (currDescIdx == 2 || currDescIdx == 3 || currDescIdx == 4) {
       currDescIdx = currDescIdx - 1;
       renderContent();
     }
@@ -277,7 +281,7 @@ const handleback = () => {
 
 const handlehome = () => {
   $("#home").on("click", () => {
-    if (currDescIdx == 0 || currDescIdx == 1 || currDescIdx > 3) {
+    if (currDescIdx == 0 || currDescIdx == 1 || currDescIdx > 4) {
       currDescIdx = 0;
       renderContent();
     }
